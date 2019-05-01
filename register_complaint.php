@@ -12,10 +12,8 @@
 		Time Of Incident : <input type=time name=toi value="00:00"><br>
 		Complaint :
 		<select name=complaint>
-			<option value=complaint1>complaint1</option>
-			<option value=complaint2>complaint2</option>
-			<option value=complaint3>complaint3</option>
-			<option value=complaint4>complaint4</option>
+			<option value="Attempt to Murder">Attempt to Murder</option>
+			<option value="Theft">Theft</option>
 		</select>
 		<input type=submit>
 	</form>
