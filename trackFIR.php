@@ -28,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
 
 
-	$sql = "SELECT `Status` FROM `Complaints` WHERE `ID` = ?" ; 
+	$sql = "SELECT `ID`, `Name`, `Age`, `Address`, `Date of Incidence`, `Time of Incidence`, `Date of Registration`, `Time of Registration`, `Complaint`, `Section`, `Category`, `Status`, `Assigned_SI` FROM `Complaints` WHERE `ID` = ?" ; 
 
 
 	if($stmt = mysqli_prepare($link, $sql))
@@ -44,7 +44,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	        if(mysqli_stmt_num_rows($stmt) != 0)
 	        {                    
 	            // Bind result variables
-	            mysqli_stmt_bind_result($stmt, $status);
+	            mysqli_stmt_bind_result($stmt, $id, $name, $age, $address, $doi, $toi, $dor, $tor, $complaint, $section, $category, $status, $assigned_si);
 
 
 	            if(mysqli_stmt_fetch($stmt))
@@ -104,35 +104,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     <?php
     	if(!empty($status))
     	{
-    		echo "<label> ".$status." </label>" ;
+    		echo "<label> FIR Status: ".$status." </label>" ; 
     	}
     ?>
 
+    <br> <br>
+    <br> <br>
+
+
+
     <form method="post" action="fir.php">
+    	<input type="hidden" name="id" value="<?php echo $id ?>">
+    	<input type="hidden" name="name" value="<?php echo $name ?>">
+    	<input type="hidden" name="age" value="<?php echo $age ?>">
+    	<input type="hidden" name="address" value="<?php echo $address ?>">
+    	<input type="hidden" name="doi" value="<?php echo $doi ?>">
+    	<input type="hidden" name="toi" value="<?php echo $toi ?>">
+    	<input type="hidden" name="dor" value="<?php echo $dor ?>">
+    	<input type="hidden" name="tor" value="<?php echo $tor ?>">
+    	<input type="hidden" name="complaint" value="<?php echo $complaint ?>">
+    	<input type="hidden" name="section" value="<?php echo $section ?>">
+    	<input type="hidden" name="category" value="<?php echo $category ?>">
+    	<input type="hidden" name="status" value="<?php echo $status ?>">
+    	<?php 
+    			if(!empty($id) && $status !== "Assigned to ASI")
+    			{
+    				echo '<button type="submit">Download FIR</button>' ; 
+    			}
+    	?>
     	
     </form>
-
-
-
-
-
-<div style="margin:5% 30% 0 30%; padding:10px; border-color: teal; border-style: dashed;">
-	<center style="font-size: 22px"><b>F</b>irst <b>I</b>nvestigation <b>R</b>eport</center>
-	<hr style="border-top: dashed 1px;">
-	<div style="float: right;">No:</div>
-	<br>
-	<div>
-		Name:<br>
-		Age:<br>
-		Address:<br>
-		Complaint:<br>
-		Section:<br>
-		<br><br><br><br><br><br>
-		Date of Incidence:<div style="float: right;">Time: </div><br>
-		Date of Registration:<div style="float: right;">Time: </div>
-	</div>
-</div>
-
-
 </body>
 </html>
