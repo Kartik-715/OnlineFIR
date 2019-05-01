@@ -3,7 +3,7 @@
 server with default setting (user 'root' with no password) */
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', 'password_fir');
+define('DB_PASSWORD', '');
 define('DB_NAME', 'Online_FIR');
  
 /* Attempt to connect to MySQL database */
