@@ -9,20 +9,11 @@
 		date_default_timezone_set('Asia/Calcutta') ;
 
 
-		$host="localhost";
-		$dbusername="root";
-		$dbpassword="password_fir";
-		$dbname="Online_FIR";
-
-		$conn = new mysqli($host, $dbusername, $dbpassword, $dbname);
-
-		if($conn->connect_error)
-		{
-			die("connection failed: " . $conn->connect_error);
-		}
+		// Include config file
+		require_once "config.php";
 
 		$assign_asi_row = "SELECT * FROM Users WHERE Designation='ASI' ORDER BY RAND() LIMIT 1" ;
-		$assigned_asi_row = $conn->query($assign_asi_row) ; 
+		$assigned_asi_row = $link->query($assign_asi_row) ; 
 
 		if($assigned_asi_row->num_rows > 0)
 		{
@@ -41,14 +32,14 @@
 			/* Fetching data from POST Request */
 
 			$getSectionCategory_query = "SELECT * FROM Mapping WHERE Complaint='$complaint'" ;
-			$getSectionCategory = $conn->query($getSectionCategory_query) ;
+			$getSectionCategory = $link->query($getSectionCategory_query) ;
 			$row = $getSectionCategory->fetch_assoc() ; // USER CAN MESS UP IF THERE ARE NO AVAILABLE COMPLAINTS // 
 			$section = $row['Section'] ; 
 			$category = $row['Category'] ;
 			$status = "Assigned to ASI" ; 
 
 			$insertComplain_query = "INSERT INTO `Complaints`(`Name`, `Age`, `Address`, `Date of Incidence`, `Time of Incidence`, `Date of Registration`, `Time of Registration`, `Complaint`, `Section`, `Category`, `Status`, `Assigned_ASI`) VALUES ('$name','$age','$address','$doi','$toi','$dor','$tor','$complaint','$section','$category','$status','$assigned_asi_username')" ; 
-			$insertComplain = $conn->query($insertComplain_query) ; 
+			$insertComplain = $link->query($insertComplain_query) ; 
 			echo "Complaint Registered Successfully" ; 
 		}
 		else
@@ -56,7 +47,7 @@
 			echo "ASI not available" ;
 		}
 
-		$conn->close() ;
+		$link->close() ;
 	?>
 </body>
 </html>
