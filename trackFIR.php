@@ -108,6 +108,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     	}
     ?>
 
+    <form method="post" action="fir.php">
+    	
+    </form>
+
+
 
 
 
