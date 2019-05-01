@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("location: /login.php");
     exit;
 }
 
@@ -103,7 +103,7 @@ require_once "../config.php" ;
 
                     echo "Successfully Approved<br>" ;
                 }
-                else if($_POST["act"]=="Decline")
+                else if($_POST["act"] == "Decline")
                 {
                     $sql3 = "DELETE FROM `Complaints` WHERE ID=".$_POST['id'] ;
                     if($stmt2 = mysqli_prepare($link, $sql3))
@@ -122,11 +122,41 @@ require_once "../config.php" ;
 
                     }
                 }
+                else if($_POST["act"] == "Update")
+                {
+                    $sql = "UPDATE Complaints SET `Status` = ? WHERE `ID` = ?" ;
+                    if($stmt = mysqli_prepare($link, $sql))
+                    {
+                        // Bind variables to the prepared statement as parameters
+                        mysqli_stmt_bind_param($stmt, "ss", $param_Status, $param_id) ;
+                        $param_Status = $_POST['updatedStatus'] ;
+                        $param_id = $_POST['firID'] ;  
+
+                        if(mysqli_stmt_execute($stmt))
+                        {
+
+                        } 
+                        else
+                        {
+                            echo "Oops! Something went wrong. Please try again later.";
+                            goto lbl ; 
+                        }
+
+
+                    } 
             }
 
             lbl:
 
-            $sql = "SELECT `ID`, `Name`, `Age`, `Address`, `Date of Incidence`, `Time of Incidence`, `Date of Registration`, `Time of Registration`, `Complaint`, `Section`, `Category`, `Status`, `Assigned_SI` FROM `Complaints` WHERE `Status`= 'Assigned to ASI' AND `Assigned_ASI` = ?" ; 
+            $sql = "SELECT `ID`, `Name`, `Age`, `Address`, `Date of Incidence`, `Time of Incidence`, `Date of Registration`, `Time of Registration`, `Complaint`, `Section`, `Category`, `Status`, `Assigned_SI` FROM `Complaints` WHERE `Status`= 'Assigned to ASI' AND `Assigned_ASI` = ?" ;
+
+
+            if($_SESSION['designation'] == "SI")
+            {
+                $sql = "SELECT `ID`, `Name`, `Age`, `Address`, `Date of Incidence`, `Time of Incidence`, `Date of Registration`, `Time of Registration`, `Complaint`, `Section`, `Category`, `Status`, `Assigned_SI` FROM `Complaints` WHERE `Assigned_SI` = ?" ; 
+            }
+
+
 
 
             if($stmt = mysqli_prepare($link, $sql))
@@ -181,7 +211,12 @@ require_once "../config.php" ;
                             <tr> <th>Status: </th> <td>'.$status.'</td>  </tr>
                             </tbody>
                             </table>
-                            <form method="post" action="view_complaints.php">
+                            ') ; 
+
+
+                    if($_SESSION['designation'] == "ASI")
+                    {
+                        echo('<form method="post" action="view_complaints.php">
                                 <input type="hidden" name="id" value="'.$id.'">
                                 <input type="hidden" name="act" value="Approve">
                                 <input type="hidden" name="category" value="'.$category.'">
@@ -192,8 +227,21 @@ require_once "../config.php" ;
                                 <input type="hidden" name="act" value="Decline">
                                 <button type=submit>Decline</button>
                             </form>
-                            <br>'
-                    ) ; 
+                            <br>') ; 
+
+                    }
+                    else if($_SESSION['designation'] == "SI")
+                    {
+                        echo('<form method="post" action="view_complaints.php">
+                                <input type="hidden" name="firID" value="'.$id.'">
+                                <input type="hidden" name="act" value="Update">
+                                <br>
+                                <input type="text" name="updatedStatus" >
+                                <button type=submit>Update Status</button>
+                            </form>') ; 
+                    }
+
+
                 }
 
             } 

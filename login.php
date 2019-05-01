@@ -5,6 +5,10 @@ session_start();
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
 {
+    if($_SESSION["designation"] == "admin")
+    {
+        header("location: admin.php") ; 
+    }
     header("location: home");
     exit;
 }
@@ -78,7 +82,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
                             $_SESSION['designation'] = $Designation ; 
                             $_SESSION['category'] = $category ;                            
                             
-                            // Redirect user to welcome page
+                            // Redirect user to welcome page 
+                            if($Designation == "admin")
+                            {
+                                header("location: admin.php") ; 
+                                exit ; 
+                            }
+
                             header("location: home");
                         } 
                         else
