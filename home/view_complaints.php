@@ -20,7 +20,7 @@ require_once "../config.php" ;
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; text-align: center; }
-        th,td{ padding: 2px ;}
+        tr,th,td{ padding-left: 5px ; margin-left: 5px ;}
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -167,8 +167,8 @@ require_once "../config.php" ;
 
                     //echo "$id $name $age $address $doi $toi $dor $tor $complaint $section $category $status $assigned_si" ; 
 
-                    echo('<table style="border: 2px solid teal; width: 15%;padding-left: 10px;">
-                            <tbody align="left" >
+                    echo('<table style="border: 2px solid teal; width: 25%;">
+                            <tbody>
                             <tr> <th>Name: </th> <td>'.$name.'</td> </tr>    
                             <tr> <th>Age: </th> <td>'.$age.'</td> </tr>  
                             <tr> <th>Address: </th> <td>'.$address.'</td> </tr>
