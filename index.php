@@ -20,7 +20,7 @@ Something is wrong with the XAMPP installation :-(
 </head>
 <body>
 	<script>
-		  location.replace("http://localhost/register_complaint.php") ;
+		  location.replace("http://localhost/login.php") ;
 	</script>
 </body>
 </html>
