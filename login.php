@@ -3,8 +3,9 @@
 session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: home.php");
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
+{
+    header("location: home");
     exit;
 }
  
@@ -20,21 +21,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 {
  
     // Check if username is empty
-    if(empty(trim($_POST["username"]))){
+    if(empty(trim($_POST["username"])))
+    {
         $username_err = "Please enter username.";
-    } else{
+    } 
+    else
+    {
         $username = trim($_POST["username"]);
     }
     
     // Check if password is empty
-    if(empty(trim($_POST["password"]))){
+    if(empty(trim($_POST["password"])))
+    {
         $password_err = "Please enter your password.";
-    } else{
+    }
+    else
+    {
         $password = trim($_POST["password"]);
     }
     
     // Validate credentials
-    if(empty($username_err) && empty($password_err)){
+    if(empty($username_err) && empty($password_err))
+    {
         // Prepare a select statement
         $sql = "SELECT `Username`, `Password`, `Name`, `Designation`, `Category` FROM `Users` WHERE `Username` = ?";
         
@@ -46,7 +54,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             $param_username = $username;
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if(mysqli_stmt_execute($stmt))
+            {
                 // Store result
                 mysqli_stmt_store_result($stmt);
                 
@@ -70,7 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
                             $_SESSION['category'] = $category ;                            
                             
                             // Redirect user to welcome page
-                            header("location: home.php");
+                            header("location: home");
                         } 
                         else
                         {
