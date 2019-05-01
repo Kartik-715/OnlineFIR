@@ -103,8 +103,24 @@ require_once "../config.php" ;
 
                     echo "Successfully Approved<br>" ;
                 }
-                else
+                else if($_POST["act"]=="Decline")
                 {
+                    $sql3 = "DELETE FROM `Complaints` WHERE ID=".$_POST['id'] ;
+                    if($stmt2 = mysqli_prepare($link, $sql3))
+                    {
+                        // Bind variables to the prepared statement as parameters
+
+                        if(mysqli_stmt_execute($stmt2))
+                        {
+                            ;
+                        } 
+                        else
+                        {
+                            echo "Oops! Something went wrong. Please try again later.<br>";
+                            goto lbl;
+                        }
+
+                    }
                 }
             }
 
