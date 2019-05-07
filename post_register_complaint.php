@@ -38,9 +38,11 @@
 			$category = $row['Category'] ;
 			$status = "Assigned to ASI" ; 
 
-			$insertComplain_query = "INSERT INTO `Complaints`(`Name`, `Age`, `Address`, `Date of Incidence`, `Time of Incidence`, `Date of Registration`, `Time of Registration`, `Complaint`, `Section`, `Category`, `Status`, `Assigned_ASI`) VALUES ('$name','$age','$address','$doi','$toi','$dor','$tor','$complaint','$section','$category','$status','$assigned_asi_username')" ; 
+			$id_temp = uniqid() ;
+			$insertComplain_query = "INSERT INTO `Complaints`(`ID`,`Name`, `Age`, `Address`, `Date of Incidence`, `Time of Incidence`, `Date of Registration`, `Time of Registration`, `Complaint`, `Section`, `Category`, `Status`, `Assigned_ASI`) VALUES ('$id_temp','$name','$age','$address','$doi','$toi','$dor','$tor','$complaint','$section','$category','$status','$assigned_asi_username')" ; 
 			$insertComplain = $link->query($insertComplain_query) ; 
-			echo "Complaint Registered Successfully" ; 
+			echo "Complaint Registered Successfully<br>" ;
+			echo "Please note your FIR number: ".$id_temp ;
 		}
 		else
 		{

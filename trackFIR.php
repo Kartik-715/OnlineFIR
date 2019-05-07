@@ -1,8 +1,7 @@
 <?php
 
 $numError = "" ; 
-$firNumber = 0 ; 
-
+$firNumber = "" ;
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 	if(empty(trim($_POST['firNumber'])))
@@ -11,11 +10,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	}
 	else
 	{
-		if(intval($_POST['firNumber']) != 0)
-		{
-			$intFIR = intval($_POST['firNumber']) ; 
-			// $firNumber = $intFIR ^ 0xDEADBEEF ; 
-			$firNumber = $intFIR ; 
+		if($_POST['firNumber'])
+		{ 
+			$firNumber = $_POST['firNumber'] ; 
 		}
 		else
 		{
@@ -34,7 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	if($stmt = mysqli_prepare($link, $sql))
 	{
 	    // Bind variables to the prepared statement as parameters
-	    mysqli_stmt_bind_param($stmt, "i", $param_id) ;
+	    mysqli_stmt_bind_param($stmt, "s", $param_id) ;
 	    $param_id = $firNumber  ; 
 
 	    if(mysqli_stmt_execute($stmt))
@@ -70,12 +67,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	        exit ; 
 	    }
 
-
 	}
-
-
-
-
 
 }
 

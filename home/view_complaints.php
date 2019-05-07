@@ -29,7 +29,7 @@ require_once "../config.php" ;
 </head>
 <body>
     <center>
-        <h1>List of All the Complaints</h1>
+        <h1 class="jumbotron" style="margin-top: 0">List of All the Complaints</h1>
         <?php 
 
             if($_SERVER['REQUEST_METHOD'] == "POST")
@@ -143,7 +143,8 @@ require_once "../config.php" ;
                         }
 
 
-                    } 
+                    }
+                } 
             }
 
             lbl:
@@ -197,7 +198,8 @@ require_once "../config.php" ;
 
                     //echo "$id $name $age $address $doi $toi $dor $tor $complaint $section $category $status $assigned_si" ; 
 
-                    echo('<table style="border: 2px solid teal; width: 25%;">
+                    echo('<div style="margin-left: 35%; margin-right: 35%;" >
+                        <table class="table table-hover" style="border: 2px solid teal;">
                             <tbody>
                             <tr> <th>Name: </th> <td>'.$name.'</td> </tr>    
                             <tr> <th>Age: </th> <td>'.$age.'</td> </tr>  
@@ -220,13 +222,14 @@ require_once "../config.php" ;
                                 <input type="hidden" name="id" value="'.$id.'">
                                 <input type="hidden" name="act" value="Approve">
                                 <input type="hidden" name="category" value="'.$category.'">
-                                <button type=submit>Approve</button>
+                                <button style="float: left;" class="btn btn-success" type=submit>Approve</button>
                             </form>
                             <form method="post" action="view_complaints.php">
                                 <input type="hidden" name="id" value="'.$id.'">
                                 <input type="hidden" name="act" value="Decline">
-                                <button type=submit>Decline</button>
+                                <button style="float: right;" class="btn btn-danger" type=submit>Decline</button>
                             </form>
+                            </div>
                             <br>') ; 
 
                     }
@@ -236,9 +239,9 @@ require_once "../config.php" ;
                                 <input type="hidden" name="firID" value="'.$id.'">
                                 <input type="hidden" name="act" value="Update">
                                 <br>
-                                <input type="text" name="updatedStatus" >
-                                <button type=submit>Update Status</button>
-                            </form>') ; 
+                                <input type="text" size="30" name="updatedStatus" >
+                                <button class="btn btn-success" type=submit>Update Status</button>
+                            </form></div>') ; 
                     }
 
 
